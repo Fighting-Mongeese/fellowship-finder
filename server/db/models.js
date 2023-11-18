@@ -342,10 +342,17 @@ const Sheets = sequelize.define('Sheets', {
 });
 
 const UserEventsPhotos = sequelize.define('UserEventsPhotos', {
-  userEventsId: {
+  userId: {
     type: DataTypes.INTEGER,
     references: {
-      model: UserEvents,
+      model: User,
+      key: 'id'
+    }
+  },
+  eventId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Events,
       key: 'id'
     }
   },
@@ -367,9 +374,10 @@ User.hasMany(Sheets, { foreignKey: 'userId' });
 Sheets.belongsTo(User, { foreignKey: 'userId' });
 User.hasMany(Posts, { foreignKey: 'userId' });
 Posts.belongsTo(User, { foreignKey: 'userId' });
-UserEventsPhotos.belongsTo(UserEvents, { foreignKey: 'userEventsId' });
-UserEvents.hasMany(UserEventsPhotos, { foreignKey: 'userEventsId' });
-
+UserEventsPhotos.belongsTo(User, { foreignKey: 'userId' });
+UserEventsPhotos.belongsTo(Events, { foreignKey: 'eventId' });
+Events.hasMany(UserEventsPhotos, { foreignKey: 'eventId' });
+User.hasMany(UserEventsPhotos, { foreignKey: 'userId' });
 module.exports = {
   User,
   Message,
