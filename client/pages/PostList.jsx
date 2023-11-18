@@ -62,7 +62,7 @@ function PostList() {
   const deletePost = (id) => {
     axios.delete(`/post/${id}`)
       .then(() => {
-        console.log('Post Deleted');
+        //console.log('Post Deleted');
         getAllPosts();
       })
       .catch((err) => {
@@ -77,7 +77,7 @@ function PostList() {
       }
     })
       .then((data) => {
-        console.log('AAAAAAAAA upvote data', data)
+        //console.log('AAAAAAAAA upvote data', data)
         getAllPosts();
       })
       .catch((err) => {
@@ -105,8 +105,8 @@ function PostList() {
   //TODO: add enter button functionality Clear input field on submit
 
   //const {post} = allPosts[0];
-  console.log('active user', activeUser);
-  console.log('allPosts', allPosts);
+  // console.log('active user', activeUser);
+  // console.log('allPosts', allPosts);
   return (
     <div className="postlist-container">
       <div className="postlist">
@@ -116,9 +116,21 @@ function PostList() {
           name="username"
           placeholder="What's on your mind?"
           value={newPost}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              newPosting();
+              setNewPost('');
+            }
+          }}
           onChange={(e) => setNewPost(e.target.value)}
         />
-        <button onClick={newPosting}>Submit</button>
+
+        <button onClick={() => {
+          newPosting();
+          setNewPost('');
+        }}
+        >Submit
+        </button>
         <div>
           {allPosts.map((post) => (
             <Post
