@@ -8,16 +8,19 @@ import {
   LineElement,
   Filler,
 } from 'chart.js';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import Card from '@mui/material/Card';
+// import CardContent from '@mui/material/CardContent';
+// import CardActions from '@mui/material/CardActions';
+// import Typography from '@mui/material/Typography';
+// import IconButton from '@mui/material/IconButton';
+// import Badge from '@mui/material/Badge';
+// import Modal from '@mui/material/Modal';
+// import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+import { Card, CardContent, CardActions, Typography, IconButton, Badge, Modal, Box, Button } from '@mui/material'
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Delete, DeleteForeverIcon } from '@mui/icons-material';
 import { Radar } from 'react-chartjs-2';
 import { UserContext } from '../components/UserProvider';
 
