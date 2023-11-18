@@ -8,7 +8,9 @@ function Post({
 }) {
   const [formInput, setFormInput] = useState('');
   let [huzzah, setHuzzah] = useState(upVotes);
-  //console.log('post props', id)
+  const newDate = new Date(created).toLocaleDateString();
+  const newTime = new Date(created).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  console.log('time', newDate, newTime)
 
   // const inc = () => {
 
@@ -16,9 +18,9 @@ function Post({
 
   return (
     <div className="post">
-      <h4 className="post-message">{message}</h4>
-      <h5 className="post-user">{user}</h5>
-      <div className="post-created">{created}</div>
+      <h2 className="post-message">{message}</h2>
+      <h3 className="post-user">-{user}</h3>
+      <div className="post-created">Posted on {newDate} at {newTime}</div>
       <div className="edit-post" onClick={() => editPost(id, formInput)}>Edit</div>
       <input
         type="text"

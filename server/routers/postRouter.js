@@ -1,7 +1,9 @@
+const sequelize = require('sequelize');
 const express = require('express');
 // const router = express.Router();
 const { Router } = require('express');
-const { Posts, User } = require('../db/models.js'); //NOTE MAY HAVE TO MATCH other routers
+const { Posts, User } = require('../db/models.js');
+//NOTE MAY HAVE TO MATCH other routers
 //const { Post } = require('../db/models')
 
 const Post = Router();
@@ -12,9 +14,16 @@ Post.get('/all', async (req, res) => {
       order: [
         ['id', 'DESC']
       ],
-      include: {
-        model: User
-      }
+      include: [
+        {
+          model: User
+        },
+        // sequelize.fn(
+        //   'DATE_FORMAT',
+        //   sequelize.col('paymentDate'),
+        //   '%d-%m-%Y %H:%i:%s'
+        // ),
+      ]
     });
     //console.log('PostGet', posts);
     return res.json(posts);
@@ -48,7 +57,7 @@ Post.patch('/:id', (req, res) => {
   console.log('patch', req.params, req.body);
   const { id } = req.params;
   const { edit } = req.body;
-  console.log('edit', edit)
+  console.log('edit', edit);
   Posts.findByPk(id)
     .then((post) => {
       post.update(edit);
