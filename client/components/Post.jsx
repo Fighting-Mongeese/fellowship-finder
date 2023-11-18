@@ -1,7 +1,7 @@
 //CHILD OF POSTLIST
 import React, { useState, useEffect, useContext } from 'react';
 // import NorthIcon from '@mui/icons-material/North';
-import { South, North } from '@mui/icons-material;
+import { South, North } from '@mui/icons-material';
 
 function Post({
   message, user, upVotes, created, deletePost, id, editPost, inc, dec

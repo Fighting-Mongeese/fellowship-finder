@@ -3,9 +3,11 @@ import { createRoot } from 'react-dom/client';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios';
 import mapboxgl from 'mapbox-gl';
-import Button from '@mui/material/Button';
-import PlaceIcon from '@mui/icons-material/Place';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Button } from '@mui/material';
+
+// import PlaceIcon from '@mui/icons-material/Place';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Place, AccountCircle } from '@mui/icons-material';
 import { Map, Marker, NavigationControl, Layer, Source } from 'react-map-gl';
 import { UserContext } from '../components/UserProvider';
 import EventTable from '../components/EventTable';
@@ -154,7 +156,7 @@ const MapPage = () => {
       >
 
         {currentMarkers && currentMarkers.map((event, index) => {
-          return (<Marker key={`${event.long}-${event.lat}`} onClick={() => markerClicked(event)} longitude={event.long} latitude={event.lat} anchor="bottom"> <PlaceIcon
+          return (<Marker key={`${event.long}-${event.lat}`} onClick={() => markerClicked(event)} longitude={event.long} latitude={event.lat} anchor="bottom"> <Place
             sx={{ color: 'black' }}
             fontSize="large"
           /></Marker>);
@@ -168,7 +170,7 @@ const MapPage = () => {
               latitude={userCoordinates[1]}
               anchor="bottom"
             >
-              <AccountCircleIcon
+              <AccountCircle
                 sx={{ color: 'black' }}
                 fontSize="large"
               />

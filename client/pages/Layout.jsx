@@ -103,7 +103,7 @@ function Header() {
               component={Link}
               to="/search"
             >
-              <SearchIcon />
+              <Search />
             </IconButton>
             <IconButton
               size="large"
@@ -113,7 +113,7 @@ function Header() {
               to="/chat"
             >
               <Badge>
-                <MailIcon />
+                <Mail />
               </Badge>
             </IconButton>
             <IconButton
@@ -125,7 +125,7 @@ function Header() {
               to="/postList"
             >
               <Badge>
-                <SignpostIcon />
+                <Signpost />
               </Badge>
             </IconButton>
             <IconButton
@@ -136,7 +136,7 @@ function Header() {
               to="/map"
             >
               <Badge>
-                <MapIcon />
+                <Map />
               </Badge>
             </IconButton>
             <IconButton
@@ -147,7 +147,7 @@ function Header() {
               to="/photos"
             >
               <Badge>
-                <PhotoLibraryIcon />
+                <PhotoLibrary />
               </Badge>
             </IconButton>
             <IconButton
@@ -158,7 +158,7 @@ function Header() {
               to="/events"
             >
               <Badge>
-                <TodayTwoToneIcon />
+                <TodayTwoTone />
               </Badge>
             </IconButton>
             <IconButton
@@ -169,7 +169,7 @@ function Header() {
               component={Link}
               to="/addSheet"
             >
-              <AddCircleOutlineIcon />
+              <AddCircleOutline />
             </IconButton>
             <IconButton
               size="large"
@@ -190,7 +190,7 @@ function Header() {
               aria-haspopup="true"
               onClick={handleClick}
             >
-              <MoreVertIcon />
+              <MoreVert />
             </IconButton>
             <Menu
               id="long-menu"
