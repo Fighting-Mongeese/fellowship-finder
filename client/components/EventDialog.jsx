@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { Dialog } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
 import dayjs from 'dayjs';
 import axios from 'axios';
 import EventForm from './EventForm';
