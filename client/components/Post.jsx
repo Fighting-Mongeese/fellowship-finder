@@ -1,7 +1,7 @@
 //CHILD OF POSTLIST
 import React, { useState, useEffect, useContext } from 'react';
-import NorthIcon from '@mui/icons-material/North';
-import SouthIcon from '@mui/icons-material/South';
+// import NorthIcon from '@mui/icons-material/North';
+import { South, North } from '@mui/icons-material;
 
 function Post({
   message, user, upVotes, created, deletePost, id, editPost, inc, dec
@@ -27,14 +27,14 @@ function Post({
       />
       <div className="delete-button" onClick={() => deletePost(id)}>Delete</div>
       <div className="huzzah-container">
-        <NorthIcon onClick={() => {
+        <North onClick={() => {
           setHuzzah(huzzah += 1);
           inc(id, huzzah);
           console.log('formInput', upVotes);
         }}
         />
         <div className="post-upvotes">Huzzahs: {huzzah}</div>
-        <SouthIcon onClick={() => {
+        <South onClick={() => {
           setHuzzah(huzzah -= 1);
           dec(id, huzzah);
           console.log('formInput', upVotes);

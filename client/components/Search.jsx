@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
+// import TextField from '@mui/material/TextField';
+// import Select from '@mui/material/Select';
+// import MenuItem from '@mui/material/MenuItem';
+// import Button from '@mui/material/Button';
+// import Avatar from '@mui/material/Avatar';
+// import Grid from '@mui/material/Grid';
+import { TextField, Select, MenuItem, Button, Avatar, Grid } from '@mui/material';
 import axios from 'axios';
 import profilepic from '../assets/profilepic.jpg';
 import { UserContext } from './UserProvider.jsx';
