@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+// import TextField from '@mui/material/TextField';
+// import Select from '@mui/material/Select';
+// import MenuItem from '@mui/material/MenuItem';
+// import Button from '@mui/material/Button';
+// import Avatar from '@mui/material/Avatar';
+import { TextField, Select, MenuItem, Button, Avatar } from '@mui/material';
 import axios from 'axios';
 import profilepic from '../assets/profilepic.jpg';
 
