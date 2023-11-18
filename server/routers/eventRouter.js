@@ -31,7 +31,7 @@ Event.get('/coordinates/:address', async (req, res) => {
   const coordinates = coordinateResponse.data.features[0].center;
   res.status(200).send(coordinates);
   // res.sendStatus(200);
-})
+});
 
 Event.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -51,15 +51,15 @@ Event.get('/:id', async (req, res) => {
 
 Event.post('/', async (req, res) => {
   const event = req.body;
-  
+
   try {
     if (event.isInPerson) {
       const apiUrlBeginning = 'https://api.mapbox.com/geocoding/v5/mapbox.places/';
       const apiUrlEnd = '.json?proximity=ip&access_token=pk.eyJ1IjoiZXZtYXBlcnJ5IiwiYSI6ImNsb3hkaDFmZTBjeHgycXBpNTkzdWdzOXkifQ.BawBATEi0mOBIdI6TknOIw';
-    
+
       let queryString = `${event.street} ${event.city} ${event.state} ${event.zip}`;
       queryString = queryString.replaceAll(' ', '%20');
-    
+
       const apiUrl = apiUrlBeginning + queryString + apiUrlEnd;
 
       const coordinateResponse = await axios.get(apiUrl).catch((error) => console.error(error));
@@ -124,11 +124,21 @@ Event.post('/user', (req, res) => {
 })
 
 Event.get('/user/:userId', (req, res) => {
-  const { userId } = req.params
+  const { userId } = req.params;
   UserEvents.findAll({ where: { userId } })
     .then((events) => {
-      res.status(200).send(events)
-    })
-})
+      res.status(200).send(events);
+    });
+});
+
+Event.get('/host/:hostId', (req, res) => {
+  const { hostId } = req.params;
+  console.log(hostId)
+  Events.findAll({ where: { hostId } })
+    .then((resp) => {
+      console.log('HEY', resp);
+      res.status(200).send(resp)})
+    .catch((err) => console.log('BYE', err));
+});
 
 module.exports = Event;

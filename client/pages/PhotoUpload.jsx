@@ -1,87 +1,46 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { UserContext } from '../components/UserProvider.jsx';
+import Gallery from '../components/Gallery.jsx';
 
 const PhotoUpload = (props) => {
   const [uploadedFile, setUploadedFile] = useState(null);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [uploadEvent, setUploadEvent] = useState(null);
-  //const [userEventId, setUserEventId] = useState(null);
   const [events, setEvents] = useState([]);
-  //{ id: 1, title: 'my event1' },
-  //{ id: 2, title: 'fellowship friends' }, { id: 3, title: 'another test' }
-  const eventsArr = [];
-  let userEventsArr;
-  //const [userEvents, setUserEvents] = useState([]);
+
+  const { activeUser, setActiveUser } = useContext(UserContext);
+
   const [success, setSuccess] = useState(false);
   const onFileChange = (event) => {
     setUploadedFile(event.target.files[0]);
   };
 
-  const getEvents = (array) => {
-    //return new Promise((reject, resolve) => {
-    console.log(array[0]);
-    return axios.get(`/api/event/${array[0].eventId}`)
-      .then((eventObj) => {
-        eventsArr.push(eventObj.data);
-        return eventsArr;
-      })
-      .then((arr) => {
-        if (array.length > 1) {
-          getEvents(array.slice(1));
-        }
-        return arr;
-      })
-      .catch((err) => console.error('could not get eventObj', err));
-    //æ});
-  };
   const onFileUpload = () => {
     const data = new FormData();
     data.append('uploaded_file', uploadedFile);
 
+    const eventId = events.filter((event) => event.title === uploadEvent).map((evt) => evt.id);
     axios.post('/upload', data)
       .then((response) => {
-        const uploadUserEventId = events.filter((event) => event.title === uploadEvent)
-          .map((event) => event.id);
-        axios.post('/upload/photoUrl', { photoUrl: response.data.secure_url, userEventsId: uploadUserEventId[0] })
+        axios.post('/upload/photoUrl', { photoUrl: response.data.secure_url, userId: activeUser.id, eventId })
           .then(() => setSuccess(true))
           .then(() => setTimeout(() => setSuccess(false), 5000))
           .catch((err) => console.error('could not post to db', err));
-        //console.log('cloudinary SUCCESS', response.data);
-        // const userEvent = userEvents.filter((userEvt) => userEvt.eventId === uploadEvent.id);
-        // console.log('user events', userEvents);
-        // console.log('upload event', uploadEvent);
-        // console.log('uploade user event id', uploadUserEventId);
       })
       .catch((err) => console.error('could not post to cloud', err));
   };
 
   const getUserEvents = () => {
-    console.log(user);
-    axios.get(`/api/event/user/${user.id}`)
+    console.log(activeUser);
+    axios.get(`/api/event/host/${activeUser.id}`)
       .then(({ data }) => {
-        userEventsArr = data;
-        return userEventsArr;
+        setEvents(data);
       })
-      .then((usEvtArr) => {
-        console.log(usEvtArr);
-        getEvents(usEvtArr)
-          .then((evtArr) => {
-            console.log('eventsObj array', evtArr);
-            setEvents(evtArr);
-          })
-          .catch((err) => console.log('getevent', err));
-        //   .then((eventsArray) => console.log(eventsArray));
-      })
-      .catch((err) => console.log('could not get events', err));
+      .catch((err) => console.error('ugh', err));
   };
 
-
-  //getUserEvents();
   useEffect(() => {
-    //if (userEvents !== currUserEvents.current) {
     getUserEvents();
-    //currUserEvents.current = userEvents;
-    //}
   }, []);
   return (
     <div>
@@ -119,6 +78,9 @@ const PhotoUpload = (props) => {
       {success ? <h4>Your photo has been uploaded</h4> : <h4> </h4> }
 
       <h2>See all photos from your attended fellowship events!</h2>
+      <Gallery
+        user={activeUser}
+      />
     </div>
   );
 };
@@ -144,3 +106,32 @@ export default PhotoUpload;
 //     //.then(() => setUserEvents(...userEvents, eventsArr))
 //     .catch((err) => console.log('could not get eventObj', err));
 // });
+// .then((usEvtArr) => {
+//   console.log(usEvtArr);
+//   getEvents(usEvtArr)
+//     .then((evtArr) => {
+//       console.log('eventsObj array', evtArr);
+//       setEvents(evtArr);
+//     })
+//     .catch((err) => console.log('getevent', err));
+//   //   .then((eventsArray) => console.log(eventsArray));
+// })
+// .catch((err) => console.log('could not get events', err));
+
+// const getEvents = (array) => {
+//   //return new Promise((reject, resolve) => {
+//   console.log(array[0]);
+//   return axios.get(`/api/event/${array[0].eventId}`)
+//     .then((eventObj) => {
+//       eventsArr.push(eventObj.data);
+//       return eventsArr;
+//     })
+//     .then((arr) => {
+//       if (array.length > 1) {
+//         getEvents(array.slice(1));
+//       }
+//       return arr;
+//     })
+//     .catch((err) => console.error('could not get eventObj', err));
+//   //æ});
+// };

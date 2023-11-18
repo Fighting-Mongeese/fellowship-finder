@@ -39,9 +39,9 @@ Upload.post('/', async (req, res) => {
 });
 
 Upload.post('/photoUrl', (req, res) => {
-  const { userEventsId, photoUrl } = req.body;
+  const { userId, eventId, photoUrl } = req.body;
   //console.log(userEventsId, photoUrl);
-  UserEventsPhotos.create({ photoUrl, userEventsId })
+  UserEventsPhotos.create({ photoUrl, userId, eventId })
     .then((response) => {
       //console.log('post success server', response);
       res.status(200).send(response);
