@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import EventDialog from '../components/EventDialog';
 import EventForm from '../components/EventForm';
-import { CollectionsBookmarkOutlined } from '@mui/icons-material';
+import CollectionsBookmarkOutlined  from '@mui/icons-material/CollectionsBookmarkOutlined';
 import { UserContext } from '../components/UserProvider';
 
 const localizer = dayjsLocalizer(dayjs);
