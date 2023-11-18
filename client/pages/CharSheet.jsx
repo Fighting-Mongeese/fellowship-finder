@@ -18,7 +18,6 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Radar } from 'react-chartjs-2';
 import { UserContext } from '../components/UserProvider';
 
