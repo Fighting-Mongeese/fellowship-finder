@@ -19,7 +19,7 @@ const PhotoUpload = (props) => {
 
   const getEvents = (array) => {
     //return new Promise((reject, resolve) => {
-    //console.log(array[0]);
+    console.log(array[0]);
     return axios.get(`/api/event/${array[0].eventId}`)
       .then((eventObj) => {
         eventsArr.push(eventObj.data);
