@@ -51,5 +51,20 @@ Upload.post('/photoUrl', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+Upload.get('/photos/:userId', (req, res) => {
+  const { userId } = req.params;
+
+  UserEventsPhotos.findAll({
+    where: {
+      userId
+    }
+  })
+    .then((urls) => res.status(200).send(urls))
+    .catch((err) => {
+      console.error('get urls', err);
+      res.sendStatus(500);
+    });
+});
 module.exports = Upload;
 

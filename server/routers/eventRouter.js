@@ -111,17 +111,21 @@ Event.delete('/:id', async (req, res) => {
 });
 
 Event.post('/user', (req, res) => {
-  const {id, createdAt, updatedAt, title} = req.body.data
-  const {userId} = req.body
+  const {
+    id, createdAt, updatedAt, title
+  } = req.body.data;
+  const { userId } = req.body;
 
-  console.log('bod', req.body.data)
+  console.log('bod', req.body.data);
 
-  UserEvents.create({userId, eventId: id, createdAt, updatedAt, title})
-  .then((event) => {
-    console.log('pop', event.dataValues)
-    res.status(201).send(event.dataValues)
+  UserEvents.create({
+    userId, eventId: id, createdAt, updatedAt, title
   })
-})
+    .then((event) => {
+      console.log('pop', event.dataValues);
+      res.status(201).send(event.dataValues);
+    });
+});
 
 Event.get('/user/:userId', (req, res) => {
   const { userId } = req.params;
@@ -133,12 +137,16 @@ Event.get('/user/:userId', (req, res) => {
 
 Event.get('/host/:hostId', (req, res) => {
   const { hostId } = req.params;
-  console.log(hostId)
+  console.log(hostId);
   Events.findAll({ where: { hostId } })
     .then((resp) => {
-      console.log('HEY', resp);
-      res.status(200).send(resp)})
-    .catch((err) => console.log('BYE', err));
+      //console.log('HEY', resp);
+      res.status(200).send(resp);
+    })
+    .catch((err) => {
+      console.log('get all events by hostid error', err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = Event;
