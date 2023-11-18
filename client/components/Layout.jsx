@@ -1,16 +1,18 @@
 /* eslint-disable object-curly-newline */
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import TodayTwoToneIcon from '@mui/icons-material/TodayTwoTone';
+// import AppBar from '@mui/material/AppBar';
+// import Box from '@mui/material/Box';
+// import Toolbar from '@mui/material/Toolbar';
+// import IconButton from '@mui/material/IconButton';
+// import Typography from '@mui/material/Typography';
+// import Badge from '@mui/material/Badge';
+import { AppBar, Box, Toolbar, IconButton, Typography, Badge } from '@mui/material';
+// import SearchIcon from '@mui/icons-material/Search';
+// import AccountCircle from '@mui/icons-material/AccountCircle';
+// import MailIcon from '@mui/icons-material/Mail';
+// import TodayTwoToneIcon from '@mui/icons-material/TodayTwoTone';
+import { Search, AccountCircle, Mail, TodayTwoTone } from '@mui/icons-material'
 import { UserContext } from './UserProvider.jsx';
 
 function Header() {
@@ -59,7 +61,7 @@ function Header() {
               component={Link}
               to="/home"
             >
-              <SearchIcon />
+              <Search />
             </IconButton>
             <IconButton
               size="large"
@@ -69,7 +71,7 @@ function Header() {
               to="/home"
             >
               <Badge badgeContent={4} color="error">
-                <MailIcon />
+                <Mail />
               </Badge>
             </IconButton>
             <IconButton
@@ -80,7 +82,7 @@ function Header() {
               to="/events"
             >
               <Badge badgeContent={1} color="error">
-                <TodayTwoToneIcon />
+                <TodayTwoTone />
               </Badge>
             </IconButton>
             <IconButton
