@@ -10,7 +10,7 @@ function Post({
   let [huzzah, setHuzzah] = useState(upVotes);
   const newDate = new Date(created).toLocaleDateString();
   const newTime = new Date(created).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  console.log('time', newDate, newTime)
+
 
   // const inc = () => {
 
@@ -32,14 +32,12 @@ function Post({
         <North onClick={() => {
           setHuzzah(huzzah += 1);
           inc(id, huzzah);
-          console.log('formInput', upVotes);
         }}
         />
         <div className="post-upvotes">Huzzahs: {huzzah}</div>
         <South onClick={() => {
           setHuzzah(huzzah -= 1);
           dec(id, huzzah);
-          console.log('formInput', upVotes);
         }}
         />
       </div>
