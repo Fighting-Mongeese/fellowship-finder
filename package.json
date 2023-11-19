@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build-short" : "webpack",
+    "build-short": "webpack",
     "build-prod": "webpack -progress -verbose --mode=production",
     "build": "webpack --watch",
     "start": "nodemon server/index.js",
@@ -42,7 +42,6 @@
     "@react-oauth/google": "^0.11.0",
     "@types/mapbox-gl": "^2.7.18",
     "axios": "^1.4.0",
-    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "chart.js": "^4.4.0",
     "cloudinary": "^1.41.0",

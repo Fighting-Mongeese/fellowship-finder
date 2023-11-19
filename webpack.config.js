@@ -11,7 +11,7 @@ module.exports = {
     clean: true,
     publicPath: '/',
   },
-  mode: 'development',
+  mode: 'production',
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
