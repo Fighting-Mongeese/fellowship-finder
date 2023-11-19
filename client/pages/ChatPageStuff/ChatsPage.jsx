@@ -26,7 +26,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
 
-import { PrettyChatWindow } from 'react-chat-engine-pretty';
+// import { PrettyChatWindow } from 'react-chat-engine-pretty';
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios'
 
