@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build-prod": "webpack --mode=production",
+    "build-prod": "webpack -progress -verbose --mode=production",
     "build": "webpack --watch",
     "start": "nodemon server/index.js",
     "autorefresh": "concurrently \"npm:start\" webpack serve",
