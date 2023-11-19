@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build-short" : "webpack",
     "build-prod": "webpack -progress -verbose --mode=production",
     "build": "webpack --watch",
     "start": "nodemon server/index.js",
