@@ -24,7 +24,7 @@ const createSignature = () => {
 };
 
 const uploadToCloudinary = async (file) => {
-  console.log(cloudinary.config());
+  //console.log(cloudinary.config());
   const res = await cloudinary.uploader.upload(file, { resource_type: 'auto' });
   return res;
 };
