@@ -7,6 +7,11 @@ const Auth = Router();
 // auth login
 Auth.get('/login/success', (req, res) => {
   const { user } = req;
+  res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3001")
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  // res.setHeader("Access-Control-Max-Age", "1800");
+  // res.setHeader("Access-Control-Allow-Headers", "content-type");
+  // res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
   res.status(200).send(user);
 });
 

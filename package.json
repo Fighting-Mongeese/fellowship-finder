@@ -1,7 +1,8 @@
 {
+  "private": true,
   "scripts": {
     "build-short": "webpack",
-    "build-prod": "webpack -progress -verbose --mode=production",
+    "build-prod": "webpack --progress --mode=production",
     "build": "webpack --watch",
     "start": "nodemon server/index.js",
     "autorefresh": "concurrently \"npm:start\" webpack serve",
