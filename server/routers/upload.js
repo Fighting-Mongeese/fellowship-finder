@@ -52,13 +52,35 @@ Upload.post('/photoUrl', (req, res) => {
     });
 });
 
-Upload.get('/photos/:userId', (req, res) => {
+Upload.get('/photos/user/:userId', (req, res) => {
   const { userId } = req.params;
 
   UserEventsPhotos.findAll({
     where: {
       userId
+    },
+    order: [
+      ['createdAt', 'DESC']
+    ]
+  })
+    .then((urls) => res.status(200).send(urls))
+    .catch((err) => {
+      console.error('get urls', err);
+      res.sendStatus(500);
+    });
+});
+
+Upload.get('/photos/event/:eventId', (req, res) => {
+  const { eventId } = req.params;
+
+  UserEventsPhotos.findAll({
+    order: [
+      ['createdAt', 'DESC']
+    ],
+    where: {
+      eventId
     }
+
   })
     .then((urls) => res.status(200).send(urls))
     .catch((err) => {
