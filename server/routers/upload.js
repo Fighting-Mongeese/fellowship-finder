@@ -3,7 +3,7 @@ const { Router } = require('express');
 const multer = require('multer');
 
 const Upload = Router();
-const { UserEventsPhotos } = require('../db/models');
+const { UserEventsPhotos, Events, User } = require('../db/models');
 
 const { uploadToCloudinary } = require('../cloudinary_helpers.js');
 
@@ -61,7 +61,8 @@ Upload.get('/photos/user/:userId', (req, res) => {
     },
     order: [
       ['createdAt', 'DESC']
-    ]
+    ],
+    include: Events
   })
     .then((urls) => res.status(200).send(urls))
     .catch((err) => {
@@ -79,7 +80,8 @@ Upload.get('/photos/event/:eventId', (req, res) => {
     ],
     where: {
       eventId
-    }
+    },
+    include: User
 
   })
     .then((urls) => res.status(200).send(urls))
