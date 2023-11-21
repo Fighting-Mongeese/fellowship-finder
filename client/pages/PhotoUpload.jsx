@@ -103,13 +103,14 @@ const PhotoUpload = () => {
   return (
     <div>
       {console.log('state', uploadEvent)}
-      <h2>Fellowship Photos</h2>
-      <h4>Upload photos from your last fellowship meet up!</h4>
+      <h1 style={{ textAlign: 'center' }}>Fellowship Photos</h1>
+      <h4 style={{ marginLeft: '15px' }}>Upload photos from your last fellowship meet up!</h4>
       { events ? (
         <form
           encType="multipart/form-data"
         >
           <select
+            style={{ marginLeft: '15px', marginRight: '55px' }}
             required
             value={uploadEvent}
             onChange={(event) => setUploadEvent(event.target.value)}
@@ -138,23 +139,35 @@ const PhotoUpload = () => {
 
       {success ? <h4>Your photo has been uploaded</h4> : <h4> </h4> }
       {error ? <p>{error}</p> : <p />}
-      <h4>Filter By:</h4>
-      <button
-        onClick={() => setFilter('user')}
-      >User
-      </button>
-      <button
-        onClick={() => setFilter('event')}
-      >Event
-      </button>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+      }}
+      >
+        <h4 style={{ marginLeft: '15px' }}>Filter By:</h4>
+        <button
+          style={{ marginLeft: '5px' }}
+          onClick={() => setFilter('user')}
+        >User
+        </button>
+        <button
+          style={{ marginLeft: '5px' }}
+          onClick={() => setFilter('event')}
+        >Event
+        </button>
+      </div>
       {filter ? (
         <div>
           {filter === 'event'
             ? (
               <select
+                style={{ marginLeft: '15px' }}
                 onChange={(event) => setSelected(['event', event.target.value])}
               >
-                <option value="" disabled selected hidden>Select an Event</option>
+                <option>Select an Event</option>
                 {events.map((event) => {
                   console.log(event);
                   return <option key={event.id}>{event.title}</option>;
@@ -163,9 +176,10 @@ const PhotoUpload = () => {
             )
             : (
               <select
+                style={{ marginLeft: '15px' }}
                 onChange={(event) => setSelected(['user', event.target.value])}
               >
-                <option value="" disabled selected hidden>Select a User</option>
+                <option>Select a User</option>
                 {users.map((userObj) => {
                   console.log(userObj);
                   return <option key={userObj.id}>{userObj.username}</option>;
@@ -173,6 +187,7 @@ const PhotoUpload = () => {
               </select>
             )}
           <button
+            style={{ marginLeft: '15px' }}
             onClick={() => getFilteredPhotos(selected)}
           >filter
           </button>
@@ -180,68 +195,28 @@ const PhotoUpload = () => {
       ) : <div />}
       {
         header ? (
-          <h3>
+          <h3 style={{ textAlign: 'center' }}>
             {selected[0] === 'event' ? `${selected[1]} Photos` : `${selected[1]}'s Photos`}
           </h3>
-        ) : <h3>Your Photos</h3>
+        ) : <h3 style={{ textAlign: 'center' }}>Your Photos</h3>
       }
-      {urls.map((urlObj) => (
-        <Photo
-          urlObj={urlObj}
-          key={urlObj.id}
-        />
-      ))}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
+      }}
+      >
+        {urls.map((urlObj) => (
+          <Photo
+            urlObj={urlObj}
+            key={urlObj.id}
+          />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default PhotoUpload;
-// data.map((event) => {
-//   //console.log(event.eventId);
-//   return axios.get(`/api/event/${event.eventId}`)
-//     .then((eventObj) => {
-//       //console.log(eventObj.data);
-// /*figure out a way to add to event upload state on each successful get*/
-//       //setUplodEvent(() => [...uploadEvent, eventObj.data])
-//       // const updateEvents = () => {
-//       //   setUserEvents([
-//       //     ...userEvents,
-//       //     eventObj.data
-//       //   ]);
-//       // };
-//       // updateEvents();
-//       //eventsArr.push(eventObj.data);
-//       //setUserEvents([...userEvents, eventObj.data]);
-//     })
-//     //.then(() => setUserEvents(...userEvents, eventsArr))
-//     .catch((err) => console.log('could not get eventObj', err));
-// });
-// .then((usEvtArr) => {
-//   console.log(usEvtArr);
-//   getEvents(usEvtArr)
-//     .then((evtArr) => {
-//       console.log('eventsObj array', evtArr);
-//       setEvents(evtArr);
-//     })
-//     .catch((err) => console.log('getevent', err));
-//   //   .then((eventsArray) => console.log(eventsArray));
-// })
-// .catch((err) => console.log('could not get events', err));
-
-// const getEvents = (array) => {
-//   //return new Promise((reject, resolve) => {
-//   console.log(array[0]);
-//   return axios.get(`/api/event/${array[0].eventId}`)
-//     .then((eventObj) => {
-//       eventsArr.push(eventObj.data);
-//       return eventsArr;
-//     })
-//     .then((arr) => {
-//       if (array.length > 1) {
-//         getEvents(array.slice(1));
-//       }
-//       return arr;
-//     })
-//     .catch((err) => console.error('could not get eventObj', err));
-//   //æ});
-// };
