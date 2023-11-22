@@ -56,7 +56,7 @@ function Home() {
   };
 
   const getUser = () => {
-    axios.get('http://localhost:3001/auth/login/success', {
+    axios.get('/auth/login/success', {
       withCredentials: true,
     })
       .then((response) => {

@@ -17,7 +17,7 @@ const AuthPage = (props) => {
       console.log('use', activeUser)
 
       axios
-        .post('http://localhost:3001/authenticate', { username })
+        .post('/authenticate', { username })
         .then((r) => {
           console.log('res', r.data)
           const data = { ...r.data, secret: username };

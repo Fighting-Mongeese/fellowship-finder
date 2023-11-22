@@ -20,7 +20,7 @@ function Signin() {
         password: signinPassword
       },
       withCredentials: true,
-      url: 'http://localhost:3001/signin'
+      url: '/signin'
     }).then((res) => {
       console.log('actee', res)
       localStorage.setItem('user', JSON.stringify(res.data.user))
