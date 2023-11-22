@@ -11,7 +11,7 @@ module.exports = {
     clean: true,
     publicPath: '/',
   },
-  mode: 'development',
+  mode: 'none',
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
@@ -35,6 +35,7 @@ module.exports = {
       {
 
         test: /\.(png|svg|jpg|gif)$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'file-loader',
@@ -47,19 +48,19 @@ module.exports = {
       }
     ]
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:7000',
-        logLevel: 'debug' /*optional*/
-      }
-    },
-    port: 3000,
-    static: './dist',
-    hot: true,
-  },
+  // devtool: 'inline-source-map',
+  // devServer: {
+  //   historyApiFallback: true,
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://localhost:7000',
+  //       logLevel: 'debug' /*optional*/
+  //     }
+  //   },
+  //   port: 3000,
+  //   static: './dist',
+  //   hot: true,
+  // },
   watchOptions: {
     aggregateTimeout: 1000, // Delay before rebuilding in milliseconds
   },
