@@ -23,7 +23,7 @@ const Photo = (props) => {
           ? <p style={{ margin: '1px' }}>Uploaded by <span style={{ fontWeight: 'bold', color: 'green' }}>{urlObj.User.username}</span></p>
           : <p style={{ margin: '1px' }}>Taken at <span style={{ fontWeight: 'bold', color: 'green' }}>{urlObj.Event.title}</span></p>
       }
-      <p style={{ marginTop: '1px', marginBottom: '10px' }}>{`on ${dayjs(urlObj.createdAt).format('LLLL')}`}</p>
+      <p style={{ marginTop: '1px', marginBottom: '10px' }}>{dayjs(urlObj.createdAt).format('LLLL')}</p>
     </div>
 
   );
