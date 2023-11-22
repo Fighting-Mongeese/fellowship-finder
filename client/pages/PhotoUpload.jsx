@@ -16,6 +16,7 @@ const PhotoUpload = () => {
   const [header, setHeader] = useState(null);
   const [urls, setUrls] = useState([]);
   const [error, setError] = useState(null);
+  const [preview, setPreview] = useState(null);
   //const [uploadEventSelect, setUploadEventSelect] = useState('Select an Event for Your Photo');
   const { activeUser, setActiveUser } = useContext(UserContext);
   const inputFile = useRef(null);
@@ -23,6 +24,7 @@ const PhotoUpload = () => {
 
   const onFileChange = (event) => {
     setUploadedFile(event.target.files[0]);
+    setPreview(URL.createObjectURL(event.target.files[0]));
   };
 
   const getUserEvents = (user) => {
@@ -36,11 +38,11 @@ const PhotoUpload = () => {
   const getPhotos = (endpoint, param) => {
     axios.get(`upload/photos/${endpoint}/${param}`)
       .then((urlObjs) => {
-        console.log('endp', endpoint, 'param', param.id);
-        console.log('selected', selected);
+        //console.log('endp', endpoint, 'param', param.id);
+        //console.log('selected', selected);
         setUrls(urlObjs.data);
       })
-      .catch((err) => console.log('could not get users', err));
+      .catch((err) => console.error('could not get users', err));
   };
 
   const getAllUsers = () => {
@@ -59,7 +61,7 @@ const PhotoUpload = () => {
       setHeader(event);
     } else if (filterArr[0] === 'user') {
       const user = users.filter((usr) => usr.username === filterArr[1]);
-      console.log('userObj from filter func', user);
+      //console.log('userObj from filter func', user);
       getPhotos('user', user[0].id);
       setHeader(user);
     }
@@ -78,7 +80,6 @@ const PhotoUpload = () => {
       ).map((evt) => evt.eventId);
       axios.post('/upload', data)
         .then((response) => {
-          console.log('photoUrl:', response.data.secure_url, 'userId:', activeUser.id, 'eventId', eventId);
           axios.post('/upload/photoUrl', { photoUrl: response.data.secure_url, userId: activeUser.id, eventId })
             .then(() => {
               setSuccess(true);
@@ -86,6 +87,7 @@ const PhotoUpload = () => {
                 inputFile.current.value = '';
               }
               setUploadEvent('Select an Event for Your Photo');
+              setPreview(null);
             })
             .then(() => getPhotos('user', activeUser.id))
             .then(() => setTimeout(() => setSuccess(false), 5000))
@@ -102,9 +104,8 @@ const PhotoUpload = () => {
 
   return (
     <div>
-      {console.log('state', uploadEvent)}
       <h1 style={{ textAlign: 'center' }}>Fellowship Photos</h1>
-      <h4 style={{ marginLeft: '15px' }}>Upload photos from your last fellowship meet up!</h4>
+      <h4 style={{ marginLeft: '15px' }}>Upload a photo from your last fellowship meet up!</h4>
       { events ? (
         <form
           encType="multipart/form-data"
@@ -139,6 +140,18 @@ const PhotoUpload = () => {
 
       {success ? <h4>Your photo has been uploaded</h4> : <h4> </h4> }
       {error ? <p>{error}</p> : <p />}
+      {preview
+        ? (
+          <div>
+            <h4>Preview</h4>
+            <img
+              alt={uploadedFile.title}
+              src={preview}
+              style={{ width: 'auto', height: '200px', objectFit: 'scale-down' }}
+            />
+          </div>
+        )
+        : <div />}
       <div style={{
         display: 'flex',
         flexDirection: 'row',
@@ -147,7 +160,7 @@ const PhotoUpload = () => {
         alignItems: 'center'
       }}
       >
-        <h4 style={{ marginLeft: '15px' }}>Filter By:</h4>
+        <h4 style={{ marginLeft: '15px' }}>See Photos By:</h4>
         <button
           style={{ marginLeft: '5px' }}
           onClick={() => setFilter('user')}
@@ -169,7 +182,7 @@ const PhotoUpload = () => {
               >
                 <option>Select an Event</option>
                 {events.map((event) => {
-                  console.log(event);
+                  //console.log(event);
                   return <option key={event.id}>{event.title}</option>;
                 }) }
               </select>
@@ -181,7 +194,7 @@ const PhotoUpload = () => {
               >
                 <option>Select a User</option>
                 {users.map((userObj) => {
-                  console.log(userObj);
+                  //console.log(userObj);
                   return <option key={userObj.id}>{userObj.username}</option>;
                 }) }
               </select>
