@@ -18,8 +18,8 @@ const http = require('http')
 // initilize App
 const app = express();
 const server = http.createServer(app)
-const {Server} = require('socket.io')
-const io = new Server(server)
+// const {Server} = require('socket.io');
+const io = require('socket.io')(server, {cors: {origin: "*"}})
 
 // connect App to client
 const clientPath = path.resolve(__dirname, '../dist');

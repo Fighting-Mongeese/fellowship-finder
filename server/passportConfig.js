@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 
 
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcryptjs');
 const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('./db/models'); // Assuming you have a User model defined with Sequelize
 

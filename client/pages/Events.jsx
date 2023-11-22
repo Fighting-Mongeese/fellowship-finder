@@ -3,6 +3,7 @@ import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { CollectionsBookmarkOutlined } from '@mui/icons-material';
 import EventDialog from '../components/EventDialog';
 import EventForm from '../components/EventForm';
 import CollectionsBookmarkOutlined  from '@mui/icons-material/CollectionsBookmarkOutlined';
@@ -85,9 +86,9 @@ function Events() {
       console.log('posted event to server', newEvent);
       setEvent(initialEventState);
       fetchEvents();
-      const { data } = await axios.get(`api/event/all`);
+      const { data } = await axios.get('api/event/all');
 
-      const nwEv = await axios.get(`api/event/${data[data.length -1].id}`)
+      const nwEv = await axios.get(`api/event/${data[data.length - 1].id}`);
 
       nwEv['userId'] = activeUser.id
 
@@ -123,7 +124,6 @@ function Events() {
     } catch (err) {
       console.error('Error posting event: ', err);
     }
-
   };
 
   return (

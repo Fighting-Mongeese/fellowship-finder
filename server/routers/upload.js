@@ -3,7 +3,7 @@ const { Router } = require('express');
 const multer = require('multer');
 
 const Upload = Router();
-const { UserEventsPhotos } = require('../db/models');
+const { UserEventsPhotos, Events, User } = require('../db/models');
 
 const { uploadToCloudinary } = require('../cloudinary_helpers.js');
 
@@ -39,15 +39,54 @@ Upload.post('/', async (req, res) => {
 });
 
 Upload.post('/photoUrl', (req, res) => {
-  const { userEventsId, photoUrl } = req.body;
+  const { userId, eventId, photoUrl } = req.body;
   //console.log(userEventsId, photoUrl);
-  UserEventsPhotos.create({ photoUrl, userEventsId })
+  UserEventsPhotos.create({ photoUrl, userId, eventId })
     .then((response) => {
       //console.log('post success server', response);
       res.status(200).send(response);
     })
     .catch((err) => {
       console.error('error posting to db server', err);
+      res.sendStatus(500);
+    });
+});
+
+Upload.get('/photos/user/:userId', (req, res) => {
+  const { userId } = req.params;
+
+  UserEventsPhotos.findAll({
+    where: {
+      userId
+    },
+    order: [
+      ['createdAt', 'DESC']
+    ],
+    include: Events
+  })
+    .then((urls) => res.status(200).send(urls))
+    .catch((err) => {
+      console.error('get urls', err);
+      res.sendStatus(500);
+    });
+});
+
+Upload.get('/photos/event/:eventId', (req, res) => {
+  const { eventId } = req.params;
+
+  UserEventsPhotos.findAll({
+    order: [
+      ['createdAt', 'DESC']
+    ],
+    where: {
+      eventId
+    },
+    include: User
+
+  })
+    .then((urls) => res.status(200).send(urls))
+    .catch((err) => {
+      console.error('get urls', err);
       res.sendStatus(500);
     });
 });

@@ -4,11 +4,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { South, North } from '@mui/icons-material';
 
 function Post({
-  message, user, upVotes, created, deletePost, id, editPost, inc, dec
+  message, user, upVotes, created, deletePost, id, editPost, inc, dec, toggle
 }) {
   const [formInput, setFormInput] = useState('');
   let [huzzah, setHuzzah] = useState(upVotes);
-  //console.log('post props', id)
+  const newDate = new Date(created).toLocaleDateString();
+  const newTime = new Date(created).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
 
   // const inc = () => {
 
@@ -16,28 +18,47 @@ function Post({
 
   return (
     <div className="post">
-      <h4 className="post-message">{message}</h4>
-      <h5 className="post-user">{user}</h5>
-      <div className="post-created">{created}</div>
-      <div className="edit-post" onClick={() => editPost(id, formInput)}>Edit</div>
-      <input
-        type="text"
-        value={formInput}
-        onChange={(e) => setFormInput(e.target.value)}
-      />
-      <div className="delete-button" onClick={() => deletePost(id)}>Delete</div>
+      <h2 className="post-message">{message}</h2>
+      <h3 className="post-user">-{user}</h3>
+      <div className="post-created">Posted on {newDate} at {newTime}</div>
+      <div className="key">
+        <button
+          className="edit-post"
+          onClick={() => {
+            toggle('field');
+            toggle('sub');
+          }}
+        >Edit
+        </button>
+        <input
+          className="field"
+          id="field"
+          type="text"
+          display="none"
+          value={formInput}
+          onChange={(e) => setFormInput(e.target.value)}
+        />
+        <button
+          className="edit-submit"
+          id="sub"
+          onClick={() => {
+            editPost(id, formInput); toggle('field');
+            toggle('sub');
+          }}
+        >Submit
+        </button>
+      </div>
+      <button className="delete-button" onClick={() => deletePost(id)}>Delete</button>
       <div className="huzzah-container">
         <North onClick={() => {
           setHuzzah(huzzah += 1);
           inc(id, huzzah);
-          console.log('formInput', upVotes);
         }}
         />
         <div className="post-upvotes">Huzzahs: {huzzah}</div>
         <South onClick={() => {
           setHuzzah(huzzah -= 1);
           dec(id, huzzah);
-          console.log('formInput', upVotes);
         }}
         />
       </div>

@@ -8,7 +8,7 @@ const cors = require('cors');
 const passport = require('passport');
 const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
-const bycrypt = require('bcrypt');
+//const bycrypt = require('bcryptjs');
 const cloudinary = require('cloudinary').v2;
 const db = require('./db/index');
 const { createSignature, uploadToCloudinary } = require('./cloudinary_helpers.js');
@@ -28,7 +28,7 @@ app.use(expressSession({ secret: 'mySecretKey', resave: false, saveUninitialized
 
 //app.use(cors({ origin: true }));
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001',], // ADD your instance's private ip address to this array (i think)
   credentials: true
 }));
 
