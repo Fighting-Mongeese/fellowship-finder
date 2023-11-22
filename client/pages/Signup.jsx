@@ -48,7 +48,7 @@ function Signup() {
   const register = async () => {
     try {
       // Register account on your server
-      const serverResponse = await axios.post('http://localhost:3001/signup', {
+      const serverResponse = await axios.post('/signup', {
         username: registerUsername,
         email: registerEmail,
         password: registerPassword,

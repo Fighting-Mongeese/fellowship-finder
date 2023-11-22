@@ -29,7 +29,7 @@ export function UserProvider({ children }) {
   const [error, setError] = useState(null);
 
   const getUser = () => {
-    axios.get('http://localhost:3001/auth/login/success', {
+    axios.get('/auth/login/success', {
       withCredentials: true,
     })
       .then((response) => {
@@ -52,7 +52,7 @@ export function UserProvider({ children }) {
       setLoading(false);
     } else {
       getUser();
-    }
+   }
   }, []);
 
   if (error) {

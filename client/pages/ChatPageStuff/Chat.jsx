@@ -4,7 +4,7 @@ import { UserContext } from '../../components/UserProvider';
 //import './Chat.css';
 import io from 'socket.io-client'
 import axios from 'axios'
-const socket = io('http://localhost:3001')
+const socket = io()
 
 import AuthPage from './AuthPage';
 import ChatsPage from './ChatsPage';

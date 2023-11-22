@@ -51,7 +51,7 @@ function Header() {
   };
 
   const handleLogout = () => {
-    axios.get('http://localhost:3001/auth/logout', {
+    axios.get('/auth/logout', {
       withCredentials: true,
     })
       .then(() => {
