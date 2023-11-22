@@ -98,6 +98,18 @@ function PostList() {
         console.error('Failed to down vote', err);
       });
   };
+
+
+  const toggle = (ID) => {
+    const element = document.getElementById(ID);
+    if (element.style.display === 'none') {
+      element.style.display = 'block';
+    } else {
+      element.style.display = 'none';
+    }
+    getAllPosts();
+  }
+
   useEffect(() => {
     getAllPosts();
   }, []);
@@ -144,6 +156,7 @@ function PostList() {
               editPost={editPost}
               inc={inc}
               dec={dec}
+              toggle={toggle}
             />
 
           ))}

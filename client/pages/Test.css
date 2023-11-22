@@ -107,3 +107,9 @@ margin-top: flex; */
 
 font-weight: bold;
 }
+.field {
+  display: none;
+}
+.edit-submit{
+  display: none
+}
