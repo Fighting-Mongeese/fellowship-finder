@@ -3,7 +3,6 @@ import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { CollectionsBookmarkOutlined } from '@mui/icons-material';
 import EventDialog from '../components/EventDialog';
 import EventForm from '../components/EventForm';
 import { UserContext } from '../components/UserProvider';
