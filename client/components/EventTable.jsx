@@ -7,41 +7,44 @@
 // import Paper from '@mui/material/Paper';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import React from 'react';
+import dayjs from 'dayjs';
 
-const EventTable = ({events, flyToCoordinates}) => {
+
+const EventTable = ({ events, flyToCoordinates }) => {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Index</TableCell>
-            <TableCell align="right">Event</TableCell>
-            <TableCell align="right">Address</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Attendees</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {events.map((event, index) => (
-            <TableRow
-              key={index}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              onClick={() => flyToCoordinates(event.long, event.lat)}
-            >
-              <TableCell component="th" scope="row">
-                {index + 1}
-              </TableCell>
-              <TableCell align="right">
-                {event.title}
-              </TableCell>
-              <TableCell align="right">{event.street} {event.state}</TableCell>
-              <TableCell align="right">{event.start}</TableCell>
-              <TableCell align="right">{event.selectedUsers}</TableCell>
+    <Paper sx={{ width: '100%', overflow: 'hidden', backgroundColor: 'black'}}>
+      <TableContainer sx= {{ float: 'right', width: '45vw', margin: '40px', maxHeight: '500px' }}>
+        <Table stickyHeader sx={{backgroundColor: '#020b97'}} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ backgroundColor: "#020b97" }}>Index</TableCell>
+              <TableCell align="right" sx={{ backgroundColor: "#020b97" }}>Event</TableCell>
+              <TableCell align="right" sx={{ backgroundColor: "#020b97" }}>Address or Link</TableCell>
+              <TableCell align="right" sx={{ backgroundColor: "#020b97" }}>Date</TableCell>
+              <TableCell align="right" sx={{ backgroundColor: "#020b97" }}>Guest List</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {events.map((event, index) => (
+              <TableRow
+                key={index}
+                onClick={() => flyToCoordinates(event.long, event.lat)}
+              >
+                <TableCell component="th" scope="row">
+                  {index + 1}
+                </TableCell>
+                <TableCell align="right">
+                  {event.title}
+                </TableCell>
+                <TableCell align="right">{event.street} {event.state} {event.link}</TableCell>
+                <TableCell align="right">{dayjs(event.start).format('ddd, MMM D, h:mm a')}</TableCell>
+                <TableCell align="right">{event.selectedUsers}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   )
 }
 
