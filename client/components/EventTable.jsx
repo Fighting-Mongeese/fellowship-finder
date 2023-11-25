@@ -140,7 +140,7 @@ const EventTable = ({ events, flyToCoordinates }) => {
                 </TableCell>
                 <TableCell align="right">{event.street} {event.state} {event.link}</TableCell>
                 <TableCell align="right">{dayjs(event.start).format('ddd, MMM D, h:mm a')}</TableCell>
-                <TableCell align="right">{event.selectedUsers}</TableCell>
+                <TableCell align="right">{event.selectedUsers.replaceAll(',$', '')}</TableCell>
               </TableRow>
             ))}
           </TableBody>

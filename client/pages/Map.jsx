@@ -163,7 +163,7 @@ const MapPage = () => {
             {currentMarkers && currentMarkers.map((event, index) => {
               return (
                 <Marker key={`${event.long}-${event.lat}-${index}`} onClick={() => markerClicked(event)} longitude={event.long} latitude={event.lat} anchor="bottom"> <Place
-                  sx={{ color: new Date(event.start) < new Date() ? 'black' : 'blue' }}
+                  sx={{ color: new Date(event.start) > new Date() ? '#357977' : '#020B98' }}
                   fontSize="large"
                 /></Marker>
               );
