@@ -4,21 +4,24 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios';
 import mapboxgl from 'mapbox-gl';
 import { Button } from '@mui/material';
-
 // import PlaceIcon from '@mui/icons-material/Place';
 // import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Place, AccountCircle } from '@mui/icons-material';
 import { Map, Marker, NavigationControl, Layer, Source } from 'react-map-gl';
 import { UserContext } from '../components/UserProvider';
 import EventTable from '../components/EventTable';
+import dayjs from 'dayjs';
 
 const MapPage = () => {
   const markerClicked = (event) => {
-    window.alert(event.title);
+    window.alert(`${event.title}: ${dayjs(event.start).format('ddd MMM DD YYYY h:mm a')}`);
   };
 
+  // both inPerson and online events populate EventTable
   const [events, setEvents] = useState([]);
+  // only inPerson events added to Map
   const [inPersonEvents, setInPersonEvents] = useState([]);
+  // sorted events added to map as markers
   const [currentMarkers, setCurrentMarkers] = useState([]);
 
   const [userAddress, setUserAddress] = useState({
@@ -79,8 +82,11 @@ const MapPage = () => {
   }, []);
 
   function flyToCoordinates(long, lat) {
-    console.log('flying!');
-    mapRef.current?.flyTo({ center: [long, lat] });
+    if (long === null && lat === null) {
+      alert('This event is online! Check the link column in the table!');
+    } else {
+      mapRef.current?.flyTo({ center: [long, lat] });
+    }
   }
 
   function sortMarkersByAttendee(username) {
@@ -120,71 +126,71 @@ const MapPage = () => {
     flyToCoordinates(coordinates[0], coordinates[1]);
   }
 
-  const layerStyle = {
-    id: 'point',
-    type: 'circle',
-    source: 'mapbox',
-    paint: {
-      'circle-radius': activeUser ? activeUser.maxTravelDist : 10,
-      'circle-color': '#007cbf'
-    }
-  };
+  const inputStyle = {
+    height: 30,
+  }
 
-  console.log('STATE. events: ', events, 'currentMarkers', currentMarkers, 'activeUser', activeUser, 'viewState', viewState, 'userAddress', userAddress);
+  // console.log('STATE. events: ', events, 'currentMarkers', currentMarkers, 'activeUser', activeUser, 'viewState', viewState, 'userAddress', userAddress);
+
+  //const now = new Date();
+  //console.log('now', now);
+
   return (
     <div>
-      <input name="street" placeholder="street" onChange={handleAddressChange} value={userAddress.street} />
-      <input name="city" placeholder="city" onChange={handleAddressChange} value={userAddress.city} />
-      <input name="state" placeholder="state" onChange={handleAddressChange} value={userAddress.state} />
-      <input name="zip" placeholder="zip" onChange={handleAddressChange} value={userAddress.zip} />
-      <Button onClick={handleAddressSubmission}>Find My Location</Button>
+      <div style={{ display: 'flex', flexDirection: "row", justifyContent: 'space-evenly', marginTop: '15px' }}>
+        <input style={inputStyle} name="street" placeholder="street" onChange={handleAddressChange} value={userAddress.street} />
+        <input style={inputStyle} name="city" placeholder="city" onChange={handleAddressChange} value={userAddress.city} />
+        <input style={inputStyle} name="state" placeholder="state" onChange={handleAddressChange} value={userAddress.state} />
+        <input style={inputStyle} name="zip" placeholder="zip" onChange={handleAddressChange} value={userAddress.zip} />
+        <Button onClick={handleAddressSubmission}>Find My Location</Button>
+        <Button variant="contained" onClick={() => sortMarkersByAttendee()}>Pin All Events</Button>
+        <Button variant="contained" onClick={() => sortMarkersByAttendee(activeUser.username)}>Pin My Events</Button>
+      </div>
+      <div>
+        <div>
+          <EventTable events={events} flyToCoordinates={flyToCoordinates} />
+        </div>
+        <div>
+          <Map
+            ref={mapRef}
+            {...viewState}
+            onMove={(evt) => setViewState(evt.viewState)}
+            mapboxAccessToken="pk.eyJ1IjoiZXZtYXBlcnJ5IiwiYSI6ImNsb3hkaDFmZTBjeHgycXBpNTkzdWdzOXkifQ.BawBATEi0mOBIdI6TknOIw"
+            style={{ position: 'absolute', top: '275px', left: '35px', width: '45vw', height: 500 }}
+            mapStyle="mapbox://styles/mapbox/streets-v9"
+          >
 
-      <EventTable events={events} flyToCoordinates={flyToCoordinates} />
-      <div style={{ top: '250px', width: '45%', margin: '20px', height: '1000px', display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
-        <div style={{ display: 'flex', flexDirection: 'row', margin: '5px' }}>
-          <Button style={{ margin: '5px' }} variant="contained" onClick={() => sortMarkersByAttendee()}>Pin All Events</Button>
-          <Button style={{ margin: '5px' }} variant="contained" onClick={() => sortMarkersByAttendee(activeUser.username)}>Pin My Events</Button>
+            {currentMarkers && currentMarkers.map((event, index) => {
+              return (
+                <Marker key={`${event.long}-${event.lat}-${index}`} onClick={() => markerClicked(event)} longitude={event.long} latitude={event.lat} anchor="bottom"> <Place
+                  sx={{ color: new Date(event.start) < new Date() ? 'black' : 'blue' }}
+                  fontSize="large"
+                /></Marker>
+              );
+            })}
+
+            {
+              userCoordinates[1]
+              && (
+                <Marker
+                  longitude={userCoordinates[0]}
+                  latitude={userCoordinates[1]}
+                  anchor="bottom"
+                >
+                  <AccountCircle
+                    sx={{ color: 'black' }}
+                    fontSize="large"
+                  />
+
+                </Marker>
+              )
+            }
+
+            <NavigationControl />
+
+          </Map>
         </div>
       </div>
-      <Map
-        ref={mapRef}
-        {...viewState}
-        onMove={(evt) => setViewState(evt.viewState)}
-        mapboxAccessToken="pk.eyJ1IjoiZXZtYXBlcnJ5IiwiYSI6ImNsb3hkaDFmZTBjeHgycXBpNTkzdWdzOXkifQ.BawBATEi0mOBIdI6TknOIw"
-        style={{ position: 'absolute', bottom: '0px', width: 600, height: 400 }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-      >
-
-        {currentMarkers && currentMarkers.map((event, index) => {
-          return (<Marker key={`${event.long}-${event.lat}`} onClick={() => markerClicked(event)} longitude={event.long} latitude={event.lat} anchor="bottom"> <Place
-            sx={{ color: 'black' }}
-            fontSize="large"
-          /></Marker>);
-        })}
-
-        {
-          userCoordinates[1]
-          && (
-            <Marker
-              longitude={userCoordinates[0]}
-              latitude={userCoordinates[1]}
-              anchor="bottom"
-            >
-              <AccountCircle
-                sx={{ color: 'black' }}
-                fontSize="large"
-              />
-
-              <Layer {...layerStyle} />
-
-            </Marker>
-          )
-        }
-
-        <NavigationControl />
-
-      </Map>
-      <Button variant="contained" onClick={() => flyToCoordinates(-45, 45)}>map2 fly</Button>
     </div>
   );
 };
