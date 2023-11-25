@@ -4,21 +4,24 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios';
 import mapboxgl from 'mapbox-gl';
 import { Button } from '@mui/material';
-
 // import PlaceIcon from '@mui/icons-material/Place';
 // import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Place, AccountCircle } from '@mui/icons-material';
 import { Map, Marker, NavigationControl, Layer, Source } from 'react-map-gl';
 import { UserContext } from '../components/UserProvider';
 import EventTable from '../components/EventTable';
+import dayjs from 'dayjs';
 
 const MapPage = () => {
   const markerClicked = (event) => {
-    window.alert(event.title);
+    window.alert(`${event.title}: ${dayjs(event.start).format('ddd MMM DD YYYY h:mm a')}`);
   };
 
+  // both inPerson and online events populate EventTable
   const [events, setEvents] = useState([]);
+  // only inPerson events added to Map
   const [inPersonEvents, setInPersonEvents] = useState([]);
+  // sorted events added to map as markers
   const [currentMarkers, setCurrentMarkers] = useState([]);
 
   const [userAddress, setUserAddress] = useState({
@@ -82,7 +85,6 @@ const MapPage = () => {
     if (long === null && lat === null) {
       alert('This event is online! Check the link column in the table!');
     } else {
-      console.log('flying!');
       mapRef.current?.flyTo({ center: [long, lat] });
     }
   }
@@ -128,7 +130,10 @@ const MapPage = () => {
     height: 30,
   }
 
-  console.log('STATE. events: ', events, 'currentMarkers', currentMarkers, 'activeUser', activeUser, 'viewState', viewState, 'userAddress', userAddress);
+  // console.log('STATE. events: ', events, 'currentMarkers', currentMarkers, 'activeUser', activeUser, 'viewState', viewState, 'userAddress', userAddress);
+
+  //const now = new Date();
+  //console.log('now', now);
 
   return (
     <div>
@@ -156,10 +161,12 @@ const MapPage = () => {
           >
 
             {currentMarkers && currentMarkers.map((event, index) => {
-              return (<Marker key={`${event.long}-${event.lat}-${index}`} onClick={() => markerClicked(event)} longitude={event.long} latitude={event.lat} anchor="bottom"> <Place
-                sx={{ color: 'black' }}
-                fontSize="large"
-              /></Marker>);
+              return (
+                <Marker key={`${event.long}-${event.lat}-${index}`} onClick={() => markerClicked(event)} longitude={event.long} latitude={event.lat} anchor="bottom"> <Place
+                  sx={{ color: new Date(event.start) < new Date() ? 'black' : 'blue' }}
+                  fontSize="large"
+                /></Marker>
+              );
             })}
 
             {
