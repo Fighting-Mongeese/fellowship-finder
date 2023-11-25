@@ -108,7 +108,7 @@ function PostList() {
       element.style.display = 'none';
     }
     getAllPosts();
-  }
+  };
 
   useEffect(() => {
     getAllPosts();
@@ -122,8 +122,9 @@ function PostList() {
   return (
     <div className="postlist-container">
       <div className="postlist">
-        <h3 className="post-header">Post your Requests</h3>
+        <div className="post-header">Post Your Requests</div>
         <input
+          className="post-input"
           type="text"
           name="username"
           placeholder="What's on your mind?"
@@ -137,10 +138,12 @@ function PostList() {
           onChange={(e) => setNewPost(e.target.value)}
         />
 
-        <button onClick={() => {
-          newPosting();
-          setNewPost('');
-        }}
+        <button
+          className="post-button"
+          onClick={() => {
+            newPosting();
+            setNewPost('');
+          }}
         >Submit
         </button>
         <div>
@@ -152,11 +155,13 @@ function PostList() {
               user={post.User.username}
               upVotes={post.upVotes}
               created={post.createdAt}
+              newPost={newPost}
               deletePost={deletePost}
               editPost={editPost}
               inc={inc}
               dec={dec}
               toggle={toggle}
+              getAll={getAllPosts}
             />
 
           ))}
