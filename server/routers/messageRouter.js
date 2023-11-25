@@ -25,5 +25,17 @@ message.post('/', (req, res) => {
     })
 })
 
+message.put('/:id', (req, res) => {
+    const {id} = req.params
+    const updatedVotes = req.body
+    Message.findByPk(id)
+    .then((mess) => {
+       return mess.update(updatedVotes)
+    })
+    .then((newVote) => {
+        res.status(200).send(newVote.dataValues)
+    })
+})
+
 
 module.exports = message;

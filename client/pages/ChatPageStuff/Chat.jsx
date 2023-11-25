@@ -15,6 +15,7 @@ function Chat() {
   const [selectedRoom, setSelectedRoom] = useState(null)
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
+  const [votes, setVotes] = useState(0)
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const { activeUser, setActiveUser } = useContext(UserContext);
   const scrollRef = useRef(null)
@@ -57,7 +58,7 @@ function Chat() {
 
   const handleSend = () => {
     console.log('did?', selectedRoom)
-    socket.emit('message', { text: message, userId: user.id, chatId: selectedRoom.eventId })
+    socket.emit('message', { text: message, userId: user.id, chatId: selectedRoom.eventId, votes: votes })
     setMessage('')
   }
 
@@ -95,7 +96,7 @@ function Chat() {
 
       <div style={{ height: '500px', overflow: 'auto', padding: '10px', overflowAnchor: 'none' }}>
         {messages.map((mess) => (
-          <ChatsPage user={user} message={mess}></ChatsPage>
+          <ChatsPage votes={votes} setVotes={setVotes} user={user} message={mess}></ChatsPage>
         ))}
         <div style={{
           overflowAnchor: 'auto',

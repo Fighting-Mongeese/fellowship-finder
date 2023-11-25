@@ -37,7 +37,7 @@ import { UserContext, UserProvider } from '../components/UserProvider';
 function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  // const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const { activeUser, setActiveUser } = useContext(UserContext);
   const navigate = useNavigate();
   console.log('active user', activeUser);
