@@ -4,14 +4,16 @@ import React, { useState, useEffect, useContext } from 'react';
 import { South, North } from '@mui/icons-material';
 
 function Post({
-  message, user, upVotes, created, deletePost, id, editPost, inc, dec, toggle
+  message, user, upVotes, created, deletePost, id, editPost, inc, dec, toggle, getAll
 }) {
   const [formInput, setFormInput] = useState('');
   let [huzzah, setHuzzah] = useState(upVotes);
+  const [postState, setPostState] = useState('');
   const newDate = new Date(created).toLocaleDateString();
   const newTime = new Date(created).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-
+  useEffect(() => {
+  }, []);
   // const inc = () => {
 
   // };
@@ -27,6 +29,7 @@ function Post({
           onClick={() => {
             toggle('field');
             toggle('sub');
+            getAll();
           }}
         >Edit
         </button>
@@ -42,8 +45,11 @@ function Post({
           className="edit-submit"
           id="sub"
           onClick={() => {
-            editPost(id, formInput); toggle('field');
+            editPost(id, formInput);
+            toggle('field');
             toggle('sub');
+            setFormInput(formInput);
+            getAll();
           }}
         >Submit
         </button>
@@ -53,6 +59,7 @@ function Post({
         <North onClick={() => {
           setHuzzah(huzzah += 1);
           inc(id, huzzah);
+          //getAll();
         }}
         />
         <div className="post-upvotes">Huzzahs: {huzzah}</div>
