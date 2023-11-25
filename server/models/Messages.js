@@ -21,6 +21,9 @@ module.exports = function(sequelize, DataTypes) {
     chatId: {
       type: DataTypes.INTEGER,
       allowNull: true
+    }, 
+    upvotes: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

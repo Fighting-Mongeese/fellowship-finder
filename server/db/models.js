@@ -187,7 +187,12 @@ const Message = sequelize.define('Message', {
 
   text: {
     type: DataTypes.STRING
+  },
+
+  votes: {
+    type: DataTypes.INTEGER
   }
+
 });
 
 

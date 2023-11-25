@@ -30,12 +30,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios'
 
-const ChatsPage = ({message, user}) => {
+const ChatsPage = ({message, user, setVotes, votes}) => {
 
   const [name, setName] = useState('')
+  const [newVotes, setNewVotes] = useState(message.votes)
   // const scrollRef = useRef(null)
   const newDate = new Date(message.createdAt).toLocaleDateString()
   const newTime = new Date(message.createdAt).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+  
 
   useEffect(() => {
     axios.get(`/api/user/${message.userId}`)
@@ -45,6 +47,26 @@ const ChatsPage = ({message, user}) => {
     console.log('newdate', newDate)
     // scroll()
   }) 
+
+  const handleVote = (command) => {
+    if(command === 'up'){
+      const updatedVotes = {
+        votes: newVotes + 1
+      }
+      axios.put(`/message/${message.id}`, updatedVotes)
+      .then((newData) => {
+        setNewVotes(newData.data.votes)
+      })
+    }else{
+      const updatedVotes = {
+        votes: newVotes - 1
+      }
+      axios.put(`/message/${message.id}`, updatedVotes)
+      .then((newData) => {
+        setNewVotes(newData.data.votes)
+      })
+    }
+  }
 
   // const scroll = () => {
   //   if(scrollRef.current){
@@ -57,6 +79,11 @@ const ChatsPage = ({message, user}) => {
       
       {message.text} 
       <div style={{fontSize: '10px'}}>{name} {newTime}</div>
+      <div>
+        <button onClick={() => {handleVote('up')}}>Up</button>
+        <div style={{fontSize: '10px'}}>{newVotes}</div>
+        <button onClick={() => {handleVote('down')}}>Down</button>
+      </div>
 
     </div>
 
