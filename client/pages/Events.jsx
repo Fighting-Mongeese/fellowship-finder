@@ -93,15 +93,14 @@ function Events() {
       console.log('newvee', nwEv)
 
       
-        const selected = nwEv.data.selectedUsers.includes('$') ? nwEv.data.selectedUsers.split(',$, ') : [nwEv.data.selectedUsers]
+      const selected = nwEv.data.selectedUsers.includes('$') ? nwEv.data.selectedUsers.split(',$, ') : [nwEv.data.selectedUsers]
       
 
-
-      console.log('selected', selected)
+      console.log('selected', selected, activeUser)
       
-      const add = await axios.post('api/event/user', nwEv)
-
+      
       for(let i in selected){
+        console.log('??')
         axios.get(`/api/user/name/${selected[i]}`)
         .then((user) => {
           nwEv['userId'] = user.data.id
@@ -111,7 +110,9 @@ function Events() {
           })
         })
       }
-
+      const add = await axios.post('api/event/user', nwEv)
+      const newChat = await axios.post('/chat', {eventId: nwEv.data.id, createdAt: nwEv.data.createdAt, updatedAt: nwEv.data.updatedAt})
+      
       // eslint-disable-next-line no-shadow
       const dates = data.map((event) => ({
         ...event,
