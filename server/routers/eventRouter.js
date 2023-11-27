@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const axios = require('axios');
-const { Events, UserEvents } = require('../db/models');
+const { Events, UserEvents, Chats } = require('../db/models');
 
 const Event = Router();
 
@@ -69,7 +69,6 @@ Event.post('/', async (req, res) => {
       event.lat = lat;
       event.long = long;
     }
-
     const newEvent = await Events.create(event);
     return res.json(newEvent);
   } catch (error) {
@@ -117,6 +116,7 @@ Event.post('/user', (req, res) => {
   const { userId } = req.body;
 
   console.log('bod', req.body.data);
+
 
   UserEvents.create({
     userId, eventId: id, createdAt, updatedAt, title

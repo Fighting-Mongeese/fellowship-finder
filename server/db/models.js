@@ -383,6 +383,9 @@ UserEventsPhotos.belongsTo(User, { foreignKey: 'userId' });
 UserEventsPhotos.belongsTo(Events, { foreignKey: 'eventId' });
 Events.hasMany(UserEventsPhotos, { foreignKey: 'eventId' });
 User.hasMany(UserEventsPhotos, { foreignKey: 'userId' });
+Chats.hasMany(Message, { foreignKey: 'chatId' });
+Message.belongsTo(Chats, { foreignKey: 'chatId' });
+
 module.exports = {
   User,
   Message,
@@ -390,5 +393,6 @@ module.exports = {
   UserEvents,
   Sheets,
   Posts,
+  Chats,
   UserEventsPhotos
 };

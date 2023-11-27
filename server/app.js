@@ -3,6 +3,7 @@ const passport = require('passport');
 const path = require('path');
 const cookieSession = require('cookie-session'); //
 const User = require('./routers/userRouter');
+const Chat = require('./routers/chatRouter');
 const Sheet = require('./routers/sheetRouter');
 const Event = require('./routers/eventRouter');
 const Post = require('./routers/postRouter');
@@ -40,6 +41,7 @@ app.use(passport.session());
 
 //ROUTERS
 app.use('/api/user', User);
+app.use('/chat', Chat)
 app.use('/auth', authRoutes); //
 app.use('/profile', profileRoutes); //
 app.use('/sheet', Sheet);
