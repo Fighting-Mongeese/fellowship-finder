@@ -86,7 +86,7 @@ function Chat() {
 
   return (
     <div>
-      <h1>Chat</h1>
+      {selectedRoom ? <h1>{selectedRoom.title}</h1> : <h1>Chat</h1>}
       {rooms.map((room) => (
         <button onClick={() => changeRoom(room)} key='room.id'>
           {room.title}
