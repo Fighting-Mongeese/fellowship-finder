@@ -4,6 +4,17 @@ Fellowship Finder is a web app that allows users to find and meet people with si
 
 The app allows users to create profiles, filter through other users based on interests and meetup logistics, add friends, and plan events. Fellowship Finder is meant to provide a platform for people to make friends with shared interests and streamline the process of organizing tabletop sessions.
 
+## Major Concepts
+Events Calendar:  you can put in your location and friends to invite. This data not only creates a pin on the map, but also creates a chatroom for the event participants to talk to each other. Users can also upload photos for the event.
+
+Character Creator: Create a character sheet for your next adventure! You can input the states, class and race of your next character and see the stats generated in a spider graph.
+
+Posting Board: Users can Post requests as well as edit, delete and up vote requests.
+
+Photo Sharing: Post photos from your the event you have attended or hosted
+
+Chat: Communicate in real time with other members of the events you are hosting or invited to
+
 ## Setup
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/). (We used Node v18.16.0 and have not tested on other versions)
 
@@ -15,11 +26,12 @@ The app allows users to create profiles, filter through other users based on int
 npm install
 ```
 
+
 4. Make an account or sign in the [Google Cloud](https://cloud.google.com/).
 
 5. Navigate to the [credentials section](https://console.cloud.google.com/apis/credentials?project=massive-concept-383720) of the API's and services.
 
-6. Create a OAuth cliend ID credential. Name it whatever you like. For *Application type* select Web application. 
+6. Create a OAuth client ID credential. Name it whatever you like. For *Application type* select Web application.
 
 7. Add the following Authorized origins:
 ```
@@ -37,34 +49,23 @@ http://localhost:3001/auth/google/redirect
 ```
 http://localhost:8080/auth/google/callback
 ```
+9. Make a copy of the .env.example and re-name as .env
 
+10. Inside of the new .env file, replace the empty strings with your new Google Oauth Client ID and Client secret. The session cookieKey can be named whatever you like. 
 
-9. Make a copy of the config/keys.js file by running this command.
+11. Make a [Cloudinary account](cloudinary.com)
 
-    On Linux or Mac: 
+12. Navigate to your dashboard and copy over the API Key, API Secret, and Cloudinary URL into the respective sections of the your .env
 
-```
-cp config/keys.example.js config/keys.js
-```
-
-    On Windows:
-
-```
-copy .config/keys.example.js .config/keys.js
-```
-
-10. Inside of the new config/keys.js file, replace the empty strings with your new Google Oauth Client ID and Client secret. The session cookieKey can be named whatever you like. 
-
-11. Run the app
+13. Run the app
 
 ```
 npm run dev
 ```
 
+14. You should now be able to access the app at [http://localhost:3001](http://localhost:3001)
 
-12. You should now be able to access the app at [http://localhost:7000](http://localhost:7000)
-
-## Designed by @party-cubed:
+## First Iteration Designed by @party-cubed:
   *Emmy Bishop*
   @emmy-bishop
 
@@ -74,9 +75,16 @@ npm run dev
   *Marvas McCladdie*
   @MarvyWarvy
 
+## Second Iteration Designed by Fighting Mongeese:
+[AJ Bell](https://github.com/abell10101)\
+[Geremy Fisher](https://github.com/gfish94)\
+[Evan Perry](https://github.com/evmaperry)\
+[Sydney Andre](https://github.com/saandre0217)\
+[James Sheppard](https://github.com/Jshep23prog)
+
 ## Stack
 
-Node: v18.16.0
+Node: v20.9.0
 
 Database: mySQL
 
@@ -98,6 +106,16 @@ Calendar UI: Big React Calendar
 
 Project management: Trello
 
+Cloud based Media Storage: Cloudinary
+
+Interactive Map API: MapBox
+
+Websocket: socket.io
+
+Data Visualization Library: Chart.js
+
+## Known Bugs
+The sign up page will take in your info but sometimes it will not send you to the user page. You can refresh the page or you can type /home at the end of the URL to advance into the site.
 
 ## License
 This project is licensed under the VERYREALVERYSECURE License.
