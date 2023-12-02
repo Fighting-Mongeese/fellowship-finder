@@ -16,6 +16,7 @@ Photo Sharing: Post photos from your the event you have attended or hosted
 Chat: Communicate in real time with other members of the events you are hosting or invited to
 
 ## Setup
+
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/). (We used Node v18.16.0 and have not tested on other versions)
 
 2. Clone this repository and navigate into the project directory
@@ -26,6 +27,7 @@ Chat: Communicate in real time with other members of the events you are hosting 
 npm install
 ```
 
+## NOTE ABOUT GOOGLE OAUTH - WE HAVE REMOVEED THIS FEATURE AND ARE ONLY USING THE LOCAL STRATEGY SO YOU DONT NEED TO SET THIS UP UNLESS YOU WANT TO ##
 
 4. Make an account or sign in the [Google Cloud](https://cloud.google.com/).
 
@@ -64,6 +66,28 @@ npm run dev
 ```
 
 14. You should now be able to access the app at [http://localhost:3001](http://localhost:3001)
+
+## For deployment
+
+Assuming you're using AWS EC2 Ubuntu instance you're going to:
+
+1. Install nvm and npm
+
+2. Install mysql and set password for mysql (https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04) Don't do secure install
+
+3. Run export command for the environment variables listed:
+CLOUDINARY_URL= >whatever youre cloudinary url is<
+API_SECRET= >whatever your cloudinary api secret is<
+API_KEY=>whatever your cloudinary api key is<
+GOOGLE_CLIENT_ID=>whatever your google client id is<
+GOOGLE_CLIENT_SECRET=>whatever your google client secret is<
+
+4. Run scripts:
+Npm run build-short
+Npm run start-short
+Make sure console logs ‘Connected to database!’
+
+(Make sure youre running the 'short' so the build doesn't freeze!)
 
 ## First Iteration Designed by @party-cubed:
   *Emmy Bishop*
@@ -115,7 +139,19 @@ Websocket: socket.io
 Data Visualization Library: Chart.js
 
 ## Known Bugs
-The sign up page will take in your info but sometimes it will not send you to the user page. You can refresh the page or you can type /home at the end of the URL to advance into the site.
+The sign up page will take in your info but sometimes it will not send you to the user page. 
+
+You can refresh the page or you can type /home at the end of the URL to advance into the site. 
+
+Refreshing may change context for logged in user to a different user.
+
+Running seed may cause conflicts with actual Data Models.
+
+Adding yourself to an event will cause duplicate chat rooms.
+
+Can't add yourself to an event if you want to add an photo.
+
+May load duplicates of certain resources (login page, emotion/react)
 
 ## License
 This project is licensed under the VERYREALVERYSECURE License.

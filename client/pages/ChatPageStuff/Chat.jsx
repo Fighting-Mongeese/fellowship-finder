@@ -25,6 +25,7 @@ function Chat() {
       .then((res) => {
         console.log('vebt', res.data)
         setSelectedRoom(res.data[0])
+        
         setRooms(res.data)
         axios.get(`/message/${res.data[0].eventId}`)
           .then(({ data }) => {
